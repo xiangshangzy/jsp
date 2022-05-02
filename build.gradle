@@ -1,0 +1,113 @@
+import org.yaml.snakeyaml.Yaml
+
+buildscript {
+    repositories { mavenCentral() }
+    dependencies {
+        classpath 'org.yaml:snakeyaml:1.30'
+    }
+}
+plugins {
+    id 'org.springframework.boot' version '2.6.6'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id 'war'
+}
+
+configurations {
+    mybatisGenerator
+    mysql
+}
+
+group = 'com.daydream'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+//repositories {
+//    mavenCentral()
+//}
+repositories {
+    maven {
+        url "https://maven.aliyun.com/nexus/content/groups/public"
+    }
+}
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2"
+    implementation 'mysql:mysql-connector-java:8.0.28'
+    implementation 'org.springframework.boot:spring-boot-devtools:2.6.5'
+    implementation 'org.projectlombok:lombok:1.18.20'
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat:2.6.5'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+    mybatisGenerator 'org.mybatis.generator:mybatis-generator-core:1.4.1'
+    mysql 'mysql:mysql-connector-java'
+
+}
+task showRepos {
+    doLast {
+        repositories.each {
+            println "repository: ${it.name} ('${it.url}')"
+        }
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+tasks.register('string')
+        {
+            doLast {
+                String a = "com.admin.sql.sql_querry.pojo"
+                var str = a.split('[.]')
+                var c = a.substring(0, a.lastIndexOf('.'))
+                for (String values : str)
+                    println(values)
+                println(c)
+            }
+
+        }
+tasks.register('MybatisGenerator')
+        {
+            doLast {
+                Yaml yaml = new Yaml()
+                def properties = yaml.load(project.rootProject.file('src/main/resources/application.yml').newDataInputStream())
+                var type_aliases = properties['mybatis']['type-aliases-package']
+                var mapper = type_aliases.substring(0, type_aliases.lastIndexOf('.')) + '.mapper'
+                var mapper_xml = 'mybatis/mapper'
+                ant.properties['configFile'] = projectDir.path + '/src/main/resources/mybatis/generatorConfig.xml'
+                ant.properties['location'] = configurations.mysql.asPath
+                ant.properties['targetProject'] = projectDir.path
+                ant.properties['driverClass'] = properties['spring']['datasource']['driver-class-name']
+                ant.properties['connectionURL'] = properties['spring']['datasource']['url']
+                ant.properties['userId'] = properties['spring']['datasource']['username']
+                ant.properties['password'] = properties['spring']['datasource']['password']
+                ant.properties['src_main_java'] = sourceSets.main.java.srcDirs[0].path
+                ant.properties['src_main_resources'] = sourceSets.main.resources.srcDirs[0].path
+                ant.properties['type-aliases-package'] = type_aliases
+                ant.properties['mapper-package'] = mapper
+                ant.properties['mapper-xml-package'] = mapper_xml
+                ant.taskdef(
+                        name: 'mbgenerator',
+                        classname: 'org.mybatis.generator.ant.GeneratorAntTask',
+                        classpath: configurations['mybatisGenerator'].asPath
+                )
+                ant.mbgenerator(overwrite: true,
+                        configfile: '${configFile}', verbose: true) {
+                    propertyset {
+                        propertyref(name: 'location')
+                        propertyref(name: 'targetProject')
+                        propertyref(name: 'userId')
+                        propertyref(name: 'driverClass')
+                        propertyref(name: 'connectionURL')
+                        propertyref(name: 'password')
+                        propertyref(name: 'src_main_java')
+                        propertyref(name: 'src_main_resources')
+                        propertyref(name: 'type-aliases-package')
+                        propertyref(name: 'mapper-package')
+                        propertyref(name: 'mapper-xml-package')
+                    }
+                }
+            }
+        }
+
+

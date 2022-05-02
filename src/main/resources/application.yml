@@ -1,0 +1,24 @@
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/
+      suffix: .jsp
+  datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/information
+        username: root
+        password: 123456
+
+server:
+  port: 8080
+
+  servlet:
+    jsp:
+      init-parameters:
+        development: true
+    context-path: /test
+
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  #可选 mapper.xml中返回类型可以只写类名，不写包名
+  type-aliases-package: com.daydream.javaee.pojo
