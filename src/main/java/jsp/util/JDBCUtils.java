@@ -7,12 +7,12 @@ import java.sql.*;
  */
 public class JDBCUtils {
 	//设置数据库名称和登录用户信息
-	private static String DRIVERCLASS="com.mysql.cj.jdbc.Driver";
-    private static String URL="jdbc:mysql://localhost:3306/information";
+	private static final String DRIVERCLASS="com.mysql.cj.jdbc.Driver";
+    private static final String URL="jdbc:mysql://localhost:3306/factory";
     private static final String USER="root";		//数据库用户
     private static final String PASSWORD="123456";	//用户root的连接数据库的密码
     
-    private static Connection conn=null;	//与数据库的连接；
+    private static final Connection conn=null;	//与数据库的连接；
     
     // 装载驱动
     private static void loadDriver() {

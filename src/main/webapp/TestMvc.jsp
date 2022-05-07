@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="student_key" class="jsp.bean.Student" scope="session"/>
+<jsp:useBean id="student_key" class="jsp.domain.Student" scope="session"/>
 
 <html>
 <head>

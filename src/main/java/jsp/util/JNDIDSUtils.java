@@ -14,13 +14,12 @@ public class JNDIDSUtils {
     public static Connection getConnection()  {   	
     	try {
 			//1、初始化Context(名称查找上下文)
-	    	Context ctx = new InitialContext();		
-						
+	    	Context ctx = new InitialContext();
 			//2、通过JNDI名称找到DataSource,对名称进行定位java:comp/env是必须加的,后面跟的是DataSource名
-			DataSource ds=(DataSource)ctx.lookup("java:comp/env/jdbc/mysql"); 
-			
+			DataSource ds=(DataSource)ctx.lookup("java:comp/env/jdbc/mysql");
 			//3、通过DataSource取得一个连接
 			conn = ds.getConnection();
+            System.out.println("数据源连接成功");
     	} catch (NamingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

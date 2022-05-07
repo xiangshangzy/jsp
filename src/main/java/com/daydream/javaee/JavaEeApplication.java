@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
-@ServletComponentScan({"jsp.servlet","jsp.filter","jsp.listener","jsp.controller"})
+@ServletComponentScan({"jsp.controller","jsp.filter","jsp.listener","jsp.controller"})
 @MapperScan
 @SpringBootApplication
 public class JavaEeApplication extends SpringBootServletInitializer {

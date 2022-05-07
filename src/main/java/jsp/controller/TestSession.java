@@ -1,6 +1,6 @@
-package jsp.servlet;
+package jsp.controller;
 
-import jsp.bean.Student;
+import jsp.domain.Student;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

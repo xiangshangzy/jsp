@@ -22,9 +22,7 @@ group = 'com.daydream'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
-//repositories {
-//    mavenCentral()
-//}
+
 repositories {
     maven {
         url "https://maven.aliyun.com/nexus/content/groups/public"

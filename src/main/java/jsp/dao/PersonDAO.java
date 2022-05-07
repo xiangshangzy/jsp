@@ -14,21 +14,16 @@ public class PersonDAO {
         Person existUser = null;    //登录用户
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        String url = " jdbc:mysql://localhost:3306/information";
-        String username = "admin";
-        String password = "123456";
         Connection conn = null;
         try {//JDBC查询
             conn = JDBCUtils.getConnection();
             System.out.println("数据库连接成功");
-            String sql = "select * from factory where id=?"; //数据库编译时
+            String sql = "select * from person where id=?"; //数据库编译时
             stmt = conn.prepareStatement(sql);    //将sql发送给数据库进行编译
             System.out.println(user.getName()+":"+user.getPassword());
-
             //设置sql参数
             stmt.setString(1,user.getID());    //传入数据值，不会作为关键字 --防止注入
             rs = stmt.executeQuery();            //执行sql
-
             //如果登陆成功，rs将只有一条记录            
             if (rs.next()) {
                 existUser = new Person();    //表示已登录用户
@@ -39,7 +34,6 @@ public class PersonDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         System.out.println(existUser);
         return existUser;
     }

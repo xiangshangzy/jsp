@@ -9,15 +9,17 @@
 <body>
 <%
     //从post请求中获得值
-    String[] interests = request.getParameterValues("interests");
     String name = request.getParameter("name");
     String password = request.getParameter("password");
     //bean实例设置属性值
     student.setName(name);
     student.setPassword(password);
-    student.setInterests(interests);
+    student.setName(name);
+    student.setPassword(password);
+    request.getSession().setAttribute("Student", student);
     //重定向到注册成功页面
-    response.sendRedirect("registerSuccess.jsp");
+    response.sendRedirect("JDBC/welcome");
+    
 %>
 </body>
 </html>

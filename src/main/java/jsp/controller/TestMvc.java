@@ -1,5 +1,5 @@
-package jsp.servlet;
-import jsp.bean.Student;
+package jsp.controller;
+import jsp.domain.Student;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +14,7 @@ public class TestMvc extends HttpServlet {
         ServletContext application=this.getServletContext();
         Student student=new Student();
         student.setPassword("123456");
-        student.setName("user");;
+        student.setName("user");
         req.getSession().setAttribute("student_key",student);
 //        req.getRequestDispatcher("TestMvc.jsp").forward(req,resp);
     }

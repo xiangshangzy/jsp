@@ -1,4 +1,6 @@
-package jsp.servlet;
+package jsp.controller;
+
+import org.springframework.util.StringUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,7 +33,6 @@ public class DispatcherServlet extends HttpServlet {
             writer.write(message);
             //响应体携带登录jsp文件
             req.getRequestDispatcher("login.jsp").include(req, resp);
-            
         }
     }
 }

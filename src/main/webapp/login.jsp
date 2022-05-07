@@ -5,7 +5,7 @@
 </head>
 <body>
 <%--表单提交给DispatcherServlet类处理,必须包含虚拟路径变量--%>
-<form method="post" action="${pageContext.request.contextPath}/dispatcherServlet">
+<form method="post" action="loginValidate.jsp">
     <%--    在input的name中设置请求头属性--%>
     <label>用户名:<input name="name"></label>
     <br/>
